@@ -1,7 +1,7 @@
 {
   "name": "servertest",
   "version": "1.0.1",
-  "description": "",
+  "description": "A simple HTTP server testing tool",
   "main": "servertest.js",
   "scripts": {
     "test": "node test.js"
@@ -12,6 +12,13 @@
     "type": "git",
     "url": "https://github.com/rvagg/servertest.git"
   },
+  "keywords": [
+    "http",
+    "test",
+    "testing",
+    "api",
+    "bolognese"
+  ],
   "dependencies": {
     "bl": ">=0.9.0 <0.10.0-0",
     "hyperquest": ">=0.3.0 <0.4.0-0",
