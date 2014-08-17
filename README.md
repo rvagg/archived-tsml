@@ -98,11 +98,13 @@ Then you can do this:
 var server = require('./index')
 
 test('test server', function (t) {
-  servertest(server, '/path/to/test', function (err, data) {
+  servertest(server(), '/path/to/test', function (err, data) {
   	// ...
   })
 })
 ```
+
+Or you could reuse the same `server` object but that's probably not so savoury for testing.
 
 ## API
 
