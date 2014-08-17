@@ -1,0 +1,20 @@
+{
+  "name": "servertest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "servertest.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "author": "Rod <rod@vagg.org> (http://r.va.gg/)",
+  "license": "MIT",
+  "dependencies": {
+    "bl": ">=0.9.0 <0.10.0-0",
+    "hyperquest": ">=0.3.0 <0.4.0-0",
+    "reduplexer": ">=0.0.6 <0.1.0-0",
+    "through2": ">=0.6.1 <0.7.0-0"
+  },
+  "devDependencies": {
+    "tape": ">=2.14.0 <2.15.0-0"
+  }
+}
