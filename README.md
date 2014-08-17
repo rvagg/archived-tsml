@@ -9,8 +9,7 @@
 
 **servertest** exists because [supertest](https://github.com/visionmedia/supertest) does way too much and gets in the way when you need to do anything novel (the typical "framework" problem).
 
-**servertest** doesn't do any assertions for you, you simply hand it an HTTP server and it manages the start / stop lifecycle and makes a request for you, passing you back the results. **servertest** is built on **[hyperquest](https://github.com/substack/hyperquest)
-** as an HTTP client and supports the same options as hyperquest and will stream if you need to (in and/or out).
+**servertest** doesn't do any assertions for you, you simply hand it an HTTP server and it manages the start / stop lifecycle and makes a request for you, passing you back the results. **servertest** is built on **[hyperquest](https://github.com/substack/hyperquest)** as an HTTP client and supports the same options as hyperquest and will stream if you need to (in and/or out).
 
 ## Examples
 
