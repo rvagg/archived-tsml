@@ -9,6 +9,9 @@ function servertest (server, uri, options, callback) {
     callback = options
     options  = {}
   }
+  
+  if (uri[0] != '/')
+    uri = '/' + uri;
 
   if (!options)
     options = {}
@@ -28,7 +31,7 @@ function servertest (server, uri, options, callback) {
       return onReturn(err)
 
     var port = this.address().port
-      , url = 'http://localhost:' + port + '/' + uri
+      , url = 'http://localhost:' + port + uri
       , resp = {}
       , req
 
