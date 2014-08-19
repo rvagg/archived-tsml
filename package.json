@@ -1,6 +1,6 @@
 {
   "name": "servertest",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "A simple HTTP server testing tool",
   "main": "servertest.js",
   "scripts": {
