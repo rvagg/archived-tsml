@@ -234,3 +234,22 @@ test('uppercasing duplex server', function (t) {
     t.end()
   }))
 })
+
+
+test('simple auto-/-prefix', function (t) {
+  var server = http.createServer(function (req, res) {
+    t.equal(req.method, 'GET', 'correct method (GET)')
+    t.equal(req.url, '/blerg', 'correct url')
+    res.end('OK')
+  })
+
+  servertest(server, 'blerg', function (err, res) {
+    t.ifError(err, 'no error')
+
+    t.equal(res.statusCode, 200, 'statusCode')
+    t.ok(Buffer.isBuffer(res.body), 'body is buffer')
+    t.equal(res.body.toString(), 'OK', 'body content')
+    t.end()
+  })
+})
+
