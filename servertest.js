@@ -9,6 +9,9 @@ function servertest (server, uri, options, callback) {
     callback = options
     options  = {}
   }
+  
+  if (uri[0] != '/')
+    uri = '/' + uri;
 
   if (!options)
     options = {}
@@ -25,7 +28,7 @@ function servertest (server, uri, options, callback) {
 
   server.listen(0, function (err) {
     if (err)
-      return callback(err)
+      return onReturn(err)
 
     var port = this.address().port
       , url = 'http://localhost:' + port + uri
@@ -43,12 +46,8 @@ function servertest (server, uri, options, callback) {
     }
 
     function onEnd (err, data) {
-      if (err) {
-        if (!callback)
-          throw err
-        callback(err)
-        return callback = null
-      }
+      if (err)
+        return onReturn(err)
 
       if (options.encoding == 'utf8')
         resp.body = data.toString('utf8')
@@ -56,10 +55,7 @@ function servertest (server, uri, options, callback) {
         try {
           resp.body = JSON.parse(data.toString('utf8'))
         } catch (e) {
-          if (!callback)
-            throw e
-          callback(e)
-          return callback = null
+          return onReturn(e)
         }
       } else
         resp.body = data.slice()
@@ -74,13 +70,16 @@ function servertest (server, uri, options, callback) {
     req.on('response', onResponse)
     req.on('end', server.close.bind(server))
   }).on('error', function (err) {
-    if (!callback)
-      throw err
-
-    callback(err)
-    callback = null
+    return onReturn(e)
   })
-
+  
+  function onReturn (err) {
+    if (!callback || typeof callback != 'function')
+      throw err
+    callback(err)
+    return callback = null
+  }
+  
   return stream
 }
 
