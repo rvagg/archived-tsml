@@ -68,11 +68,13 @@ function servertest (server, uri, options, callback) {
 
     instream.pipe(req)
     req.on('response', onResponse)
-    req.on('end', server.close.bind(server))
-  }).on('error', function (err) {
-    return onReturn(e)
-  })
-  
+    req.on('end', function() {
+      server.close(function() {
+        server.removeListener('error', onReturn)
+      })
+    })
+  }).on('error', onReturn)
+
   function onReturn (err) {
     if (!callback || typeof callback != 'function')
       throw err
