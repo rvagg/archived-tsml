@@ -253,3 +253,21 @@ test('simple auto-/-prefix', function (t) {
   })
 })
 
+test('does not leak event emitters', function(t) {
+  var server = http.createServer(function (req, res) {
+    res.end('OK')
+  })
+  servertest(server, '/', function (err, res) {
+    var events = Object.keys(server._events)
+    var before = {}
+    events.forEach(function (event) {
+      before[event] = server.listeners(event).length
+    })
+    servertest(server, '/', function (err, res) {
+      events.forEach(function (event) {
+        t.equal(server.listeners(event).length, before[event], 'does not leak ' + event)
+      })
+      t.end()
+    })
+  })
+})
