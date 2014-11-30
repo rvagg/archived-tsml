@@ -9,7 +9,7 @@ function servertest (server, uri, options, callback) {
     callback = options
     options  = {}
   }
-  
+
   if (uri[0] != '/')
     uri = '/' + uri;
 
@@ -25,6 +25,7 @@ function servertest (server, uri, options, callback) {
   var instream  = through2()
     , outstream = through2()
     , stream    = duplexer(instream, outstream)
+    , resp      = {}
 
   server.listen(0, function (err) {
     if (err)
@@ -32,7 +33,6 @@ function servertest (server, uri, options, callback) {
 
     var port = this.address().port
       , url = 'http://localhost:' + port + uri
-      , resp = {}
       , req
 
     function onResponse (res) {
@@ -55,6 +55,7 @@ function servertest (server, uri, options, callback) {
         try {
           resp.body = JSON.parse(data.toString('utf8'))
         } catch (e) {
+          resp.body = data.toString('utf8')
           return onReturn(e)
         }
       } else
@@ -78,10 +79,10 @@ function servertest (server, uri, options, callback) {
   function onReturn (err) {
     if (!callback || typeof callback != 'function')
       throw err
-    callback(err)
+    callback(err, resp)
     return callback = null
   }
-  
+
   return stream
 }
 

@@ -271,3 +271,14 @@ test('does not leak event emitters', function(t) {
     })
   })
 })
+
+test('always pass response to callback', function(t) {
+  var server = http.createServer(function (req, res) {
+    res.end('OK')
+  })
+  servertest(server, '/', {encoding: 'json'}, function (err, res) {
+    t.equal(res.body, 'OK')
+    t.equal(err.message, 'Unexpected token O')
+    t.end()
+  })
+})
