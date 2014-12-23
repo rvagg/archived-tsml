@@ -25,7 +25,6 @@ function servertest (server, uri, options, callback) {
   var instream  = through2()
     , outstream = through2()
     , stream    = duplexer(instream, outstream)
-    , resp      = {}
 
   server.listen(0, function (err) {
     if (err)
@@ -33,6 +32,7 @@ function servertest (server, uri, options, callback) {
 
     var port = this.address().port
       , url = 'http://localhost:' + port + uri
+      , resp = {}
       , req
 
     function onResponse (res) {
@@ -56,6 +56,12 @@ function servertest (server, uri, options, callback) {
           resp.body = JSON.parse(data.toString('utf8'))
         } catch (e) {
           resp.body = data.toString('utf8')
+          Object.defineProperty(e, 'response', {
+            enumerable: false,
+            writable: false,
+            configurable: false,
+            value: resp
+          })
           return onReturn(e)
         }
       } else
@@ -79,7 +85,7 @@ function servertest (server, uri, options, callback) {
   function onReturn (err) {
     if (!callback || typeof callback != 'function')
       throw err
-    callback(err, resp)
+    callback(err)
     return callback = null
   }
 
