@@ -9,7 +9,7 @@ function servertest (server, uri, options, callback) {
     callback = options
     options  = {}
   }
-  
+
   if (uri[0] != '/')
     uri = '/' + uri;
 
@@ -55,6 +55,13 @@ function servertest (server, uri, options, callback) {
         try {
           resp.body = JSON.parse(data.toString('utf8'))
         } catch (e) {
+          resp.body = data.toString('utf8')
+          Object.defineProperty(e, 'response', {
+            enumerable: false,
+            writable: false,
+            configurable: false,
+            value: resp
+          })
           return onReturn(e)
         }
       } else
@@ -81,7 +88,7 @@ function servertest (server, uri, options, callback) {
     callback(err)
     return callback = null
   }
-  
+
   return stream
 }
 

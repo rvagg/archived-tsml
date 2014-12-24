@@ -271,3 +271,15 @@ test('does not leak event emitters', function(t) {
     })
   })
 })
+
+test('attach response to err.response and non-enumerable', function(t) {
+  var server = http.createServer(function (req, res) {
+    res.end('OK')
+  })
+  servertest(server, '/', {encoding: 'json'}, function (err, res) {
+    t.deepEqual(Object.keys(err), [])
+    t.equal(err.message, 'Unexpected token O')
+    t.ok(err.response, 'OK')
+    t.end()
+  })
+})

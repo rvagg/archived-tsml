@@ -144,6 +144,9 @@ The `callback` receives a special `response` object containing data from the ser
 - <b><code>'statusCode'</code></b>: the status code of the response from the server
 - <b><code>'body'</code></b>: the response body. By default it will be a `Buffer`. If you use `'utf8'` as the `'encoding'` you'll get a `String` and if you use `'json'` as the `'encoding'` you'll get whatever `JSON.parse()` gives you for the response string.
 
+### error
+
+when `servertest` has an encoding error like this [case](test.js#L276-L284), you can access a `response` with the default encoding `UTF-8` or `utf8` from `error.response`, this should give you, the users, much clue as to what your program went wrong.
 
 ## License
 
