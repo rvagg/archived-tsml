@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rvagg/servertest.git"
+    "url": "https://github.com/rvagg/tsml.git"
   },
   "keywords": [
     "template",
@@ -18,7 +18,7 @@
   "author": "Rod Vagg <rod@vagg.org>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/rvagg/servertest/issues"
+    "url": "https://github.com/rvagg/tsml/issues"
   },
-  "homepage": "https://github.com/rvagg/servertest"
+  "homepage": "https://github.com/rvagg/tsml"
 }
